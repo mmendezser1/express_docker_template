@@ -6,14 +6,13 @@ import mongoose from 'mongoose';
 dotenv.config();
 const app = express();
 
-const PORT = process.env.PORT;
+const PORT = process.env.APP_PORT;
 
 app.get("/", (request: Request, response: Response) => { 
   response.status(200).send("Hello World");
 }); 
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/mydatabase';
-
+const mongoUri = `mongodb://${process.env.MONGO_URI}:${process.env.MONGO_PORT}/${process.env.MONGO_NAME}`;
 mongoose.connect(mongoUri)
   .then(() => {
     console.log('Connected to MongoDB');
